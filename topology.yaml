@@ -1,0 +1,50 @@
+
+
+###################################################
+###### Physical Interface and topology data #######
+###################################################
+
+topo:
+  leaf01:
+    port1:
+    port2:
+    port3:
+    port4:
+    port5:
+    port6:
+    port7:
+    port8:
+    port9:
+  leaf02:
+    port1:
+    port2:
+    port3:
+    port4:
+    port5:
+    port6:
+    port7:
+    port8:
+    port9:
+  spine01:
+    port1:
+    port2:
+    port3:
+    port4:
+    port5:
+    port6:
+    port7:
+    port8:
+    port9:
+  spine02:
+    port1:
+    port2:
+    port3:
+    port4:
+    port5:
+    port6:
+    port7:
+    port8:
+    port9:
+  mk-border-l001:
+  mk-vifw-l001:
+  mk-vilb-l001:

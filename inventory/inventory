@@ -1,0 +1,31 @@
+[local_host]
+localhost ansible_host=127.0.0.1
+
+[evpn_lab]
+leaf 
+spine 
+
+[evpn_leaf]
+leaf01 ansible_host=192.168.0.196
+leaf02 ansible_host=192.168.0.197
+
+[evpn_spine]
+spine01 ansible_host=192.168.0.128
+spine02 ansible_host=192.168.0.129
+
+[load_balancers]
+
+[firewalls]
+
+[all:children]
+fabric 
+leaf
+spine 
+
+[fabric:children]
+evpn_leaf
+evpn_spine
+
+[fabric:vars]
+ansible_connection=local
+ansible_network_os=nxos
