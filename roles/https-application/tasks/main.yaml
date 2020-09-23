@@ -1,0 +1,35 @@
+---
+
+- name: Create SSL Profile for ot2.dev.apigee.otxlab.net
+  bigip_profile_client_ssl:
+    server: "{{ ansible_host }}"
+    user: "{{ username }}"
+    password: "{{ password }}"
+    state: present
+    validate_certs: no 
+    #delegate_to: localhost
+    name: ot2.dev.apigee.otxlab.net_2020
+    cert_key_chain:
+      - cert: ot2.dev.apigee.otxlab.net_2020
+        key: ot2.dev.apigee.otxlab.net_2020
+        chain: ot2_dev_chain_2020
+
+- name: Create OT2-DevX Apigee_DEV Virtual Server
+  bigip_virtual_server:
+    server: "{{ ansible_host }}"
+    user: "{{ username }}"
+    password: "{{ password }}"
+    name: ot2.dev.apigee.otxlab.net
+    type: standard
+    source: 0.0.0.0/0
+    destination: 10.9.198.5
+    port: 443
+    pool: ot2.dev.apigee.otxlab.net
+    snat: automap
+    profiles:
+      - tcp
+      - name: ot2.dev.apigee.otxlab.net_2020
+        context: client-side
+    enabled_vlans: /Common/external
+    validate_certs: no 
+  delegate_to: localhost
