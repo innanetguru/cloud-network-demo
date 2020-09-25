@@ -1,0 +1,31 @@
+########## CRG Externalization Play#1 #########
+
+---
+- name: Deploy VIP
+  hosts: "mk-vilb-l001"
+  connection: local
+  gather_facts: no 
+  pre-tasks:
+    - include_vars: "{{ topology }}"
+
+  vars_prompt:
+    - name: username
+      prompt: Username
+      private: no 
+    - name: password 
+      prompt: Password 
+
+  roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs"
+    - dns-create 
+    - http-redirect
+    - https-application
+    - verification 
+
+########### CRG Externalization Play#2 ##########
+
+- name: Deploy External Access Policy 
+  hosts: "mk-vifw-l001"
+  connection: local 
+  gather_facts: no 
+  pre-tasks:
+    - include_vars: "{{ topology }}"

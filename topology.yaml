@@ -15,6 +15,7 @@ topo:
     port7:
     port8:
     port9:
+    mgmt0: 
   leaf02:
     port1:
     port2:
@@ -25,6 +26,7 @@ topo:
     port7:
     port8:
     port9:
+    mgmt0:
   spine01:
     port1:
     port2:
@@ -35,6 +37,7 @@ topo:
     port7:
     port8:
     port9:
+    mgmt0:
   spine02:
     port1:
     port2:
@@ -45,6 +48,10 @@ topo:
     port7:
     port8:
     port9:
+    mgmt0:
   mk-border-l001:
+    port1:
+    port2:
+    port3:
   mk-vifw-l001:
   mk-vilb-l001:
