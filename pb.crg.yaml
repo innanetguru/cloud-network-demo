@@ -15,17 +15,20 @@
     - name: password 
       prompt: Password 
 
-  roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs"
-    - dns-create 
-    - http-redirect
-    - https-application
-    - verification 
+  roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
+    - http-redirect        # non-secure VIP task container
+    - https-application    # secure vip task container
 
 ########### CRG Externalization Play#2 ##########
 
 - name: Deploy External Access Policy 
   hosts: "mk-vifw-l001"
+  collections:
+    - fortinet.fortios
   connection: local 
   gather_facts: no 
   pre-tasks:
     - include_vars: "{{ topology }}"
+
+  #roles:
+  #  - external-access   # container for tasks associated with firewall externalization
