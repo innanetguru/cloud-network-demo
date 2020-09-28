@@ -1,5 +1,14 @@
 ---
 
+
+
+- name: Create Nodes
+  bigip_node:
+    server: "{{ ansible_host }}"       # from Inventory
+    user: "{{ username }}"             # Stored in Vault
+    password: "{{ password }}"         # Stored in Vault
+    server_port: "{{server_port }}"    # From Inventory
+
 - name: Create SSL Profile for ot2.dev.apigee.otxlab.net
   bigip_profile_client_ssl:
     server: "{{ ansible_host }}"
