@@ -12,7 +12,7 @@
       allow_routing: "enable"
       comment: "comment"
       member:
-        - name: "test_group1 (source {{ }} )"
+        - name: "{{ some_member_name }}"
 - name:
   fortios_firewall_policy:
     firewall_policy:

@@ -17,7 +17,7 @@
 
   roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
     - http-redirect        # non-secure VIP task container
-    - https-application    # secure vip task container
+    - https-app   # secure vip task container
 
 ########### CRG Externalization Play#2 ##########
 
@@ -30,5 +30,12 @@
   pre-tasks:
     - include_vars: "{{ topology }}"
 
+
+  vars_prompt:
+  - name: username
+    prompt: Username
+    private: no 
+  - name: password 
+    prompt: Password 
   #roles:
-  #  - external-access   # container for tasks associated with firewall externalization
+    - external-access   # container for tasks associated with firewall externalization

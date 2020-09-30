@@ -5,7 +5,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-ansible = "*"
+ansible = "==2.7"
 f5-sdk = "*"
 ncclient = "*"
 
