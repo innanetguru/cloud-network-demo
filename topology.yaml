@@ -3,7 +3,7 @@
 ###################################################
 ###### Physical Interface and topology data #######
 ###################################################
-
+# { name: <interface-name>, peer: <remote-peer-hostname>, }
 topo:
   leaf01:
     port1:
