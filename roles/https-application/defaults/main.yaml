@@ -1,0 +1,7 @@
+---
+lb_method: round-robin
+
+monitors:
+  - http
+  - tcp
+

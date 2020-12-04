@@ -18,6 +18,7 @@
   roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
     - http-redirect        # non-secure VIP task container
     - https-app   # secure vip task container
+    - 
 
 ########### CRG Externalization Play#2 ##########
 

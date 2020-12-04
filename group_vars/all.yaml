@@ -1,0 +1,8 @@
+---
+provider:
+  user: "{{ username }}"
+  password: "{{ password }}"
+  transport: rest 
+  server: "{{ ansible_host }}"
+  server_port: 443
+  validate_certs: no 
