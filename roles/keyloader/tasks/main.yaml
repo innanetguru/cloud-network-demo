@@ -1,0 +1,10 @@
+---
+- name: Transfer public key
+  bigip_ssl_certificate:
+    provider: " {{ provider }}"
+    name: "{{ commonName }}_{{ year }}.crt"
+    state: present
+    content: "{{ lookup('file' , './certificates/{{ custTag }}/{{ commonName }}.crt' }}"
+
+  
+
