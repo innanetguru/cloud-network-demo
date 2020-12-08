@@ -25,8 +25,6 @@
 
 - name: Deploy External Access Policy 
   hosts: "mk-vifw-l001"
-  collections:
-    - fortinet.fortios
   connection: local 
   gather_facts: no 
   pre-tasks:
@@ -39,5 +37,5 @@
     private: no 
   - name: password 
     prompt: Password 
-  #roles:
+  roles:
     - external-access   # container for tasks associated with firewall externalization
