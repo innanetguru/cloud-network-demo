@@ -4,7 +4,14 @@
     provider: " {{ provider }}"
     name: "{{ commonName }}_{{ year }}.crt"
     state: present
-    content: "{{ lookup('file' , './certificates/{{ custTag }}/{{ commonName }}.crt' }}"
+    content: "{{ lookup('file' , './certificates/{{ commonName }}.crt' }}"
+
+- name: Transfer private key
+  bigip_ssl_certificate:
+    provider: " {{ provider }}"
+    name: "{{ commonName }}_{{ year }}.key"
+    state: present
+    content: "{{ lookup('file' , './certificates/{{ commonName }}.key' }}"
 
   
 

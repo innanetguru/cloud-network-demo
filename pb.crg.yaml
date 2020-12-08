@@ -17,8 +17,9 @@
 
   roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
     - http-redirect        # non-secure VIP task container
-    - https-app   # secure vip task container
-    - 
+    - https-application   # secure vip task container
+    - keyloader
+    #- keyFactory       # May require custom python modules to automate signing through sectigo API; not critical/blocker, keys generation/signing can be done manually
 
 ########### CRG Externalization Play#2 ##########
 
