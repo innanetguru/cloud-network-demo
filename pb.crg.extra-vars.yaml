@@ -1,13 +1,14 @@
 ---
 year: "2020"
-application_nodes:
-  fqdn: 
-    - bp2-labmon-l001.otxlab.net
-    - bp2-labmon-l002.otxlab.net
-  svc_port: 80
-
-pool: lab.cn_https
-
+bigip_params:
+  application_nodes:
+    fqdn: 
+      - bp2-labmon-l001.otxlab.net
+      - bp2-labmon-l002.otxlab.net
+    svc_port: 80
+  pool: lab.cn_https
+fortigate_params:
+  
 custTag: test-lab
 cert_data:
   commonName: 

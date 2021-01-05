@@ -1,18 +1,18 @@
 ---
 - name: Create Nodes
   bigip_node:
-    provider: "{{ provider }}"        # Provider DICT in group_vars/all.yaml; arguments collected at runtime
-    name: "{{ item }}"                # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
-    fqdn: "{{ item }}"                # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+    provider: "{{ provider }}"                        # Provider DICT in group_vars/all.yaml; arguments collected at runtime
+    name: "{{ item }}"                                # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+    fqdn: "{{ item }}"                                # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
     validate_certs: no
-  loop: "{{ application_nodes.fqdn }}"     # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+  loop: "{{ bigip_params.application_nodes.fqdn }}"   # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
 
 
 - name: Create application/service Pool    
   bigip_pool:
     provider: "{{ provider }}"
     state: present
-    name: "{{ pool }}"                 # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+    name: "{{ bigip_params.pool }}"    # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
     lb_method: "{{ lb_method }}"       # role default: round-robin, roles/https-application/defaults/main.yaml; override via extra-vars or role_vars
     monitors: " {{ monitors }}"        # role default: ['tcp', 'http']; override via extra-vars or role_vars
 
@@ -20,10 +20,10 @@
 - name: Add Application Servers to Application/service Pool
   bigip_pool_member:
     provider: "{{ provider }}"
-    pool: "{{ pool }}"
+    pool: "{{ bigip_params.pool }}"
     fqdn: "{{ item }}"
-    port: "{{ svc_port }}"
-  loop: "{{ application_nodes.fqdn }}"
+    port: "{{ bigip_params.application_nodes.svc_port }}"
+  loop: "{{ bigip_params.application_nodes.fqdn }}"
 
 
 - name: Create SSL Profile 

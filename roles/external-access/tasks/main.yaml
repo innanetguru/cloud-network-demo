@@ -6,6 +6,15 @@
 
 - name: create address objects
   fortios_firewall_address:
+    state: present
+    ssl_verify: False 
+    host: "{{ ansible_host }}"
+    firewall_address:
+      name: "{{  }}"                               # pb.crg.yaml; passed in from cli
+      associated_interface: "{{ lb_interface }}"   # role vars;  
+      comment:  "{{ comment }}"                    # prompted at runtime
+      subnet: "{{  }}"                             # pb.crg.yaml; passed in from cli
+      
 - name: Create Address group and add objects
   fortios_firewall_addrgrp:
     firewall_addrgrp:
