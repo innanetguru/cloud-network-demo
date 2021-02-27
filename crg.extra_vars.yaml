@@ -13,7 +13,7 @@ fortigate_params:
   
 custTag: test-lab
 cert_data:
-  commonName: 
-  certFile:     # File name on bigip local filesystem
-  keyFile:      # File name on bigip local filesystem
+  commonName: gns3-test-app-7stacktech.com
+  certFile: "{{ commonName }}_{{ year }}"
+  keyFile: "{{ commonName }}_{{ year }}"
 
