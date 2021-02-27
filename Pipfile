@@ -8,6 +8,9 @@ name = "pypi"
 ansible = "==2.9"
 f5-sdk = "*"
 ncclient = "*"
+clg = "*"
+pyyaml = "*"
+yamlordereddictloader = "*"
 
 [dev-packages]
 

@@ -33,9 +33,9 @@
     #delegate_to: localhost
     name: ot2.dev.apigee.otxlab.net_2020
     cert_key_chain:
-      - cert: ot2.dev.apigee.otxlab.net_2020
-        key: ot2.dev.apigee.otxlab.net_2020
-        chain: ot2_dev_chain_2020
+      - cert: "{{ certFile }}"    #  r1.0 passed in from -e @vars.yml
+        key: "{{ keyFile }}"      #  r1.0 passed in from -e @vars.yml
+        chain: "{{ ca_chain }}"      #  role vars
 
 - name: Create Virtual Server
   bigip_virtual_server:

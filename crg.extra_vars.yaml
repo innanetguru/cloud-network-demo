@@ -1,0 +1,19 @@
+---
+year: "2021"
+bigip_params:
+  application_name: www.
+  application_nodes:
+    fqdn: 
+      - gns-appsvr-l001.otxlab.com
+      - gns-appsvr-l002.otxlab.com
+    svc_port: 80
+  pool: lab.cn_https
+
+fortigate_params:
+  
+custTag: test-lab
+cert_data:
+  commonName: 
+  certFile:     # File name on bigip local filesystem
+  keyFile:      # File name on bigip local filesystem
+

@@ -1,12 +1,14 @@
 ########## CRG Externalization Play#1 #########
 
 ---
+- include: pb.keyloader.yaml
 - name: Deploy VIP
   hosts: "mk-vilb-l001"
   connection: local
   gather_facts: no 
   pre-tasks:
     - include_vars: "{{ topology }}"
+    - include: pb.f5facts.yaml
 
   vars_prompt:
     - name: username
@@ -18,7 +20,7 @@
   roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
     - http-redirect        # non-secure VIP task container
     - https-application   # secure vip task container
-    - keyloader
+    #- keyloader    --->> prerequisite step, keys must be uploaded and filenames known;  consider as "include: pb.keys.yaml"
     #- keyFactory       # May require custom python modules to automate signing through sectigo API; not critical/blocker, keys generation/signing can be done manually
 
 ########### CRG Externalization Play#2 ##########

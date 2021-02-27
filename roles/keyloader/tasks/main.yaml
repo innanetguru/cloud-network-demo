@@ -2,16 +2,16 @@
 - name: Transfer public key
   bigip_ssl_certificate:
     provider: " {{ provider }}"
-    name: "{{ commonName }}_{{ year }}.crt"
+    name: "{{ commonName }}_{{ year }}"
     state: present
-    content: "{{ lookup('file' , './certificates/{{ commonName }}.crt' }}"
+    content: "{{ lookup('file' , './certificates/{{ commonName }}_crt.crt' }}"
 
 - name: Transfer private key
   bigip_ssl_certificate:
     provider: " {{ provider }}"
-    name: "{{ commonName }}_{{ year }}.key"
+    name: "{{ commonName }}_{{ year }}"
     state: present
-    content: "{{ lookup('file' , './certificates/{{ commonName }}.key' }}"
+    content: "{{ lookup('file' , './certificates/{{ commonName }}_key.key' }}"
 
   
 
