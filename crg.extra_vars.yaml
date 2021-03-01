@@ -1,7 +1,7 @@
 ---
 year: "2021"
 bigip_params:
-  application_name: www.
+  application_name: www.7stacktech.com
   application_nodes:
     fqdn: 
       - gns-appsvr-l001.otxlab.com
@@ -13,7 +13,7 @@ fortigate_params:
   
 custTag: test-lab
 cert_data:
-  commonName: gns3-test-app-7stacktech.com
+  commonName: 7stacktech.com
   certFile: "{{ commonName }}_{{ year }}"
   keyFile: "{{ commonName }}_{{ year }}"
 

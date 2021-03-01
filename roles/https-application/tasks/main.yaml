@@ -31,25 +31,25 @@
     provider: "{{ provider }}"
     state: present
     #delegate_to: localhost
-    name: ot2.dev.apigee.otxlab.net_2020
+    name: "{{ custTag }}_ssl-profile"   #  r1.0 passed in from -e @vars.yml
     cert_key_chain:
-      - cert: "{{ certFile }}"    #  r1.0 passed in from -e @vars.yml
-        key: "{{ keyFile }}"      #  r1.0 passed in from -e @vars.yml
+      - cert: "{{ cert_data.certFile }}"    #  r1.0 passed in from -e @vars.yml
+        key: "{{ cert_data.keyFile }}"      #  r1.0 passed in from -e @vars.yml
         chain: "{{ ca_chain }}"      #  role vars
 
 - name: Create Virtual Server
   bigip_virtual_server:
     provider: "{{ provider }}"
-    name: ot2.dev.apigee.otxlab.net
+    name: "{{ bigip_params.application_name }}_https"  #  r1.0 passed in from -e @vars.yml
     type: standard
     source: 0.0.0.0/0
-    destination: 10.9.198.5
-    port: 443
-    pool: ot2.dev.apigee.otxlab.net
+    destination: "{{ bigip_params.application_name }}"  # r1.0 passed in from -e @vars.yml
+    port: "{{ port }}"          # https-application role-default
+    pool: "{{ bigip_params.pool }}"
     snat: automap
     profiles:
       - tcp
-      - name: ot2.dev.apigee.otxlab.net_2020
+      - name: "{{ custTag }}_ssl-profile"  #  r1.0 passed in from -e @vars.yml
         context: client-side
     enabled_vlans: /Common/external
   delegate_to: localhost

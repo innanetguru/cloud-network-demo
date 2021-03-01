@@ -1,0 +1,21 @@
+---
+- name: Deploy VIP
+  hosts: "elb01"
+  connection: local
+  gather_facts: no 
+
+  vars_prompt:
+  - name: username
+    prompt: Username
+    private: no 
+  - name: password 
+    prompt: Password
+
+  tasks:
+    - name:  Load device facts
+      bigip_device_facts:
+        provider: "{{ provider }}"
+        #validate_certs: no 
+        gather_subset:
+          - all
+      delegate_to: localhost

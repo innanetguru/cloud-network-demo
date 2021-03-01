@@ -5,3 +5,5 @@ monitors:
   - http
   - tcp
 
+port: 443
+

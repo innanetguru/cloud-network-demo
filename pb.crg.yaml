@@ -18,8 +18,8 @@
       prompt: Password 
 
   roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
-    - http-redirect        # non-secure VIP task container
     - https-application   # secure vip task container
+    - http-redirect        # non-secure VIP task container
     #- keyloader    --->> prerequisite step, keys must be uploaded and filenames known;  consider as "include: pb.keys.yaml"
     #- keyFactory       # May require custom python modules to automate signing through sectigo API; not critical/blocker, keys generation/signing can be done manually
 
