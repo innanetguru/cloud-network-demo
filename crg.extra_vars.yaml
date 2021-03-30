@@ -1,19 +1,27 @@
 ---
 year: "2021"
 bigip_params:
-  application_name: www.7stacktech.com
+  application_name: www.7stacktech.com 
   application_nodes:
     fqdn: 
-      - gns-appsvr-l001.otxlab.com
+      - gns-appsvr-l001.otxlab.com 
       - gns-appsvr-l002.otxlab.com
     svc_port: 80
   pool: lab.cn_https
 
 fortigate_params:
+  vip_objects:     # FQDN or ip/subnet/ipmask
+    - "192.168.194.100/32"
+    - "192.168.194.101/32"
+  vip:
+    - "192.168.194.100"
+      #name: "192.168.194.10/32"
+    - "192.168.194.101"
+      #name: "192.168.194.101/32"
+  int_interface: "vlan4"
   
 custTag: test-lab
 cert_data:
   commonName: 7stacktech.com
   certFile: "{{ commonName }}_{{ year }}"
   keyFile: "{{ commonName }}_{{ year }}"
-

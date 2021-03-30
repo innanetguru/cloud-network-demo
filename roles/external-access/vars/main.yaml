@@ -1,2 +1,2 @@
 ext_interface:  "vlan3"
-lb_interface: "vlan4"
+int_interface: "vlan4"

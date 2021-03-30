@@ -1,0 +1,49 @@
+---
+- name: Deploy VIP
+  hosts: "efw01"
+  collections:
+   - fortinet.fortios
+  connection: httpapi
+  gather_facts: False 
+  #pre-tasks:
+    #- include_vars: "{{ topology }}"
+
+  #vars_prompt:
+    #- name: username
+      #prompt: Username
+      #private: no 
+    #- name: password 
+      #prompt: Password 
+
+  tasks:
+    - name: create address objects
+      fortios_firewall_address:
+        state: present
+        #ssl_verify: False 
+        #https: False
+        #host: "{{ ansible_host }}"
+        firewall_address:
+          name: "{{ fortigate_params.vip_objects[0] }}"                            # pb.crg.yaml; passed in from cli
+          associated_interface: "{{ fortigate_params.int_interface }}"   # role vars;  
+          #comment:  "{{ comment }}"                     # prompted at runtime
+          subnet: "{{ fortigate_params.vip_objects[0]}}"                       # pb.crg.yaml; passed in from cli
+          #list: 
+            #- ip: "{{ fortigate_params.vip[0] }}"
+      #loop: "{{ fortigate_params.vip_objects }}"
+
+    - name: Create Address group and add objects
+      fortios_firewall_addrgrp:
+        #ssl_verify: False 
+        #https: False
+        #host: "{{ ansible_host }}"
+        firewall_addrgrp:
+          allow_routing: "enable"
+          comment: "comment"
+          name: "{{ custTag }}"
+          member:
+            - name: "{{ fortigate_params.vip.name[0] }}" 
+
+     #- name:
+       #fortios_firewall_policy:
+         #firewall_policy:
+           #action: accept

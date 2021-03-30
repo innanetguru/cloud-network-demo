@@ -60,3 +60,9 @@ bp2-lfsw99-l002 ansible_host=10.9.1.227
 ############ Inventory Variables #################
 [all:vars]
 topology=./topology.yml
+
+[firewalls:vars]
+ansible_network_os=fortinet.fortios.fortios
+ansible_httpapi_use_ssl=False
+ansible_user=admin 
+ansible_password=

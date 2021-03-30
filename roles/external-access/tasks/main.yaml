@@ -10,18 +10,22 @@
     ssl_verify: False 
     host: "{{ ansible_host }}"
     firewall_address:
-      name: "{{  }}"                               # pb.crg.yaml; passed in from cli
-      associated_interface: "{{ lb_interface }}"   # role vars;  
-      comment:  "{{ comment }}"                    # prompted at runtime
-      subnet: "{{  }}"                             # pb.crg.yaml; passed in from cli
-      
+      name: "{{ item }}"                            # pb.crg.yaml; passed in from cli
+      associated_interface: "{{ int_interface }}"   # role vars;  
+      comment:  "{{ comment }}"                     # prompted at runtime
+      subnet: "{{ item }}"                       # pb.crg.yaml; passed in from cli
+  loop: "{{ fortigate_params.server_ipmask }}"
+  
 - name: Create Address group and add objects
   fortios_firewall_addrgrp:
     firewall_addrgrp:
       allow_routing: "enable"
       comment: "comment"
+      name: "{{ custTag }}"
       member:
         - name: "{{ some_member_name }}"
+
+
 - name:
   fortios_firewall_policy:
     firewall_policy:

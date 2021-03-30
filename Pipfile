@@ -11,6 +11,7 @@ ncclient = "*"
 clg = "*"
 pyyaml = "*"
 yamlordereddictloader = "*"
+fortiosapi = "*"
 
 [dev-packages]
 
