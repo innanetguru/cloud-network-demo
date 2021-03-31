@@ -65,4 +65,3 @@ topology=./topology.yml
 ansible_network_os=fortinet.fortios.fortios
 ansible_httpapi_use_ssl=False
 ansible_user=admin 
-ansible_password=

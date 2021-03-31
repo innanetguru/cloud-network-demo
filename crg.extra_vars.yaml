@@ -13,11 +13,9 @@ fortigate_params:
   vip_objects:     # FQDN or ip/subnet/ipmask
     - "192.168.194.100/32"
     - "192.168.194.101/32"
-  vip:
-    - "192.168.194.100"
-      #name: "192.168.194.10/32"
-    - "192.168.194.101"
-      #name: "192.168.194.101/32"
+  custGrpMembers:
+    - name: "192.168.194.100/32"
+    - name: "192.168.194.101/32"
   int_interface: "vlan4"
   
 custTag: test-lab
