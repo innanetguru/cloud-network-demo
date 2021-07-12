@@ -1,24 +1,35 @@
 ---
 year: "2021"
-bigip_params:
-  application_name: www.7stacktech.com 
-  application_nodes:
-    fqdn: 
-      - gns-appsvr-l001.otxlab.com 
-      - gns-appsvr-l002.otxlab.com
-    svc_port: 80
-  pool: lab.cn_https
+build_params:
+  custTag: test-lab
+  application_names: 
+    - prod: test-lab-p01.7stacktech.com 
+      test: test-lab-t01.7stacktech.com 
+  shared_params:
+    custGrpVips:
+      - name: "192.168.194.12/32"
+      - name: "192.168.194.13/32"
+  server_params:
+    - prod:
+        - fqdn: gns-appsvr-p01.7stacktech.com 
+          ip: "192.168.194.100"
+          port: "80"
+        - fqdn: gns-appsvr-p02.7stacktech.com
+          ip: "192.168.194.101"
+          port: "80"
+    - test:
+        - fqdn: gns-appsvr-t01.7stacktech.com 
+          ip: "192.168.194.102"
+          port: "80"
+        - fqdn: gns-appsvr-t02.7stacktech.com
+          ip: "192.168.194.103"
+          port: "80"
+  bigip_params:
+    - pools: 
+        - prod: prod-lab
+        - test: test-lab
 
-fortigate_params:
-  vip_objects:     # FQDN or ip/subnet/ipmask
-    - "192.168.194.100/32"
-    - "192.168.194.101/32"
-  custGrpMembers:
-    - name: "192.168.194.100/32"
-    - name: "192.168.194.101/32"
-  int_interface: "vlan4"
-  
-custTag: test-lab
+
 cert_data:
   commonName: 7stacktech.com
   certFile: "{{ commonName }}_{{ year }}"

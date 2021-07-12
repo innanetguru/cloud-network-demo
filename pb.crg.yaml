@@ -16,6 +16,8 @@
       private: no 
     - name: password 
       prompt: Password 
+    - name: comment
+      prompt: Enter IM#/CR#/JIRA
 
   roles:           #  Optional role creation for tasks such as "create-nodes", "create-pools", "import-certs" 
     - https-application   # secure vip task container

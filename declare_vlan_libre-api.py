@@ -18,8 +18,9 @@ token=getpass.getpass() #b6d91f0b35105993a2830fd4083d43cd
 hostname=raw_input('Enter the hostname of the switch you wish to check: ')
 #requester_input=open("request_data.yaml")
 
-class VlanGenerator():
-    pass
+class vlanController():
+    def __init__(self, ):
+        
 
 
 def set_vlan(used_vlans):

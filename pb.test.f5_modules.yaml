@@ -1,0 +1,75 @@
+---
+- name: Deploy VIP
+  hosts: "elb01"
+  connection: local
+  gather_facts: no 
+
+  vars_files:
+    - roles/https-application/vars/main.yaml
+    - roles/https-application/defaults/main.yaml
+    - keys.yaml
+
+  vars_prompt:
+  - name: username
+    prompt: Username
+    private: no 
+  - name: password 
+    prompt: Password
+  - name: comment
+    prompt: Enter IM#/CR#/JIRA
+
+  tasks:
+    - name: Create Production Nodes
+      bigip_node:
+        provider: "{{ provider }}"                        # Provider DICT in group_vars/all.yaml; arguments collected at runtime
+        name: "{{ item.fqdn }}"                                # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+        fqdn: "{{ item.fqdn }}"                                # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+        validate_certs: no
+      loop: "{{ build_params.server_params }}"   # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+
+
+     - name: Create application/service Pool    
+       bigip_pool:
+         provider: "{{ provider }}"
+         state: present
+         name: "{{ build_params.pool }}"    # passed in as '-e', e.g. 'ansible-playbook pb.crg.yaml -e @pb.crg.extra-vars.yaml'
+         lb_method: "{{ lb_method }}"       # role default: round-robin, roles/https-application/defaults/main.yaml; override via extra-vars or role_vars
+         monitors: " {{ monitors }}"        # role default: ['tcp', 'http']; override via extra-vars or role_vars
+
+
+     - name: Add Application Servers to Application/service Pool
+       bigip_pool_member:
+         provider: "{{ provider }}"
+         pool: "{{ build_params.pool }}"
+         fqdn: "{{ item.fqdn }}"
+         port: "{{ item.port }}"
+       loop: "{{ build_params.application_nodes }}"
+
+
+       - name: Create SSL Profile 
+         bigip_profile_client_ssl:
+           provider: "{{ provider }}"
+           state: present
+           #delegate_to: localhost
+           name: "{{ custTag }}_ssl-profile"   #  r1.0 passed in from -e @vars.yml
+           cert_key_chain:
+             - cert: "{{ cert_data.certFile }}"    #  r1.0 passed in from -e @vars.yml
+               key: "{{ cert_data.keyFile }}"      #  r1.0 passed in from -e @vars.yml
+               chain: "{{ ca_chain }}"      #  role vars
+
+       - name: Create Virtual Server
+         bigip_virtual_server:
+           provider: "{{ provider }}"
+           name: "{{ build_params.application_name }}_https"  #  r1.0 passed in from -e @vars.yml
+           type: standard
+           source: 0.0.0.0/0
+           destination: "{{ bigip_params.application_name }}"  # r1.0 passed in from -e @vars.yml
+           port: "{{ port }}"          # https-application role-default
+           pool: "{{ bigip_params.pool }}"
+           snat: automap
+           profiles:
+             - tcp
+             - name: "{{ custTag }}_ssl-profile"  #  r1.0 passed in from -e @vars.yml
+               context: client-side
+           enabled_vlans: /Common/external
+         delegate_to: localhost
